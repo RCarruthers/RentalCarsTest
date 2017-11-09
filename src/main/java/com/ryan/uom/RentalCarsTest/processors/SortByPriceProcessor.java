@@ -10,18 +10,20 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.List;
 
+import static com.ryan.uom.RentalCarsTest.util.Constants.LINE_SEPERATOR;
+
 @Component
 public class SortByPriceProcessor implements Processor {
-
-    private static final String LINE_SEPERATOR = System.getProperty("line.separator");
 
     @Override
     public void process(Exchange exchange) throws Exception {
         List<Vehicle> vehicleList = exchange.getIn().getBody(VehicleList.class).getSearch().getVehicleList();
         Collections.sort(vehicleList);
         String vehiclePriceRanking = "";
-        for(Vehicle vehicle : vehicleList) {
-            vehiclePriceRanking += ("Vehicle: " + vehicle.getName() + " - " + "Price: " + vehicle.getPrice() + LINE_SEPERATOR);
+        int carsInList = 0;
+        for (Vehicle vehicle : vehicleList) {
+            carsInList++;
+            vehiclePriceRanking += (carsInList + ". " + vehicle.getName() + " - " + vehicle.getPrice() + LINE_SEPERATOR);
         }
         exchange.getOut().setBody(vehiclePriceRanking);
     }

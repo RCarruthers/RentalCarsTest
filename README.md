@@ -5,7 +5,7 @@ This project was created using Spring Boot and Apache Camel.
 ## Requirements
 To run this project, you must have:
 * A JDK installation. 
-* A Maven installation. 
+* A Maven 3 installation. 
 
 ## Build/Run Instructions 
 From the source directory:

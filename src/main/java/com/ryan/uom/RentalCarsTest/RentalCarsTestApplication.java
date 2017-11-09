@@ -6,34 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import static com.ryan.uom.RentalCarsTest.util.Constants.ENDPOINT_START_ROUTE;
+import javax.servlet.http.HttpServletRequest;
+
+import static com.ryan.uom.RentalCarsTest.util.Constants.*;
 
 @SpringBootApplication
 public class RentalCarsTestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RentalCarsTestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RentalCarsTestApplication.class, args);
+    }
 
+    @RestController
+    class Controller {
 
-	@RestController
-	class Controller {
+        @Autowired
+        ProducerTemplate producer;
 
-		@Autowired
-		ProducerTemplate producer;
-
-		@RequestMapping("/hello")
-		public String greeting() {
-			Object exchange = producer.requestBody(ENDPOINT_START_ROUTE, "First test.");
-			return (String) exchange;
-		}
-
-		@RequestMapping("/bye")
-		public String greeting2() {
-			Object exchange = producer.requestBody("direct:bye", "First test.");
-			return (String) exchange;
-		}
-	}
+        @RequestMapping(value = {REQUEST_PATH_PRICE, REQUEST_PATH_SIPP, REQUEST_PATH_RATING, REQUEST_PATH_SCORE})
+        public String greeting(Model model, HttpServletRequest request) {
+            Object exchange = producer.requestBody(ENDPOINT_START_ROUTE, request.getServletPath());
+            return (String) exchange;
+        }
+    }
 }

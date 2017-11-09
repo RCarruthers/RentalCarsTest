@@ -7,13 +7,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "sipp",
-    "name",
-    "price",
-    "supplier",
-    "rating"
+        "sipp",
+        "name",
+        "price",
+        "supplier",
+        "rating"
 })
-public class Vehicle implements Comparable<Vehicle>{
+public class Vehicle implements Comparable<Vehicle> {
 
     @JsonProperty("sipp")
     private String sipp;
@@ -25,6 +25,7 @@ public class Vehicle implements Comparable<Vehicle>{
     private String supplier;
     @JsonProperty("rating")
     private Double rating;
+    private int score;
 
     @JsonProperty("sipp")
     public String getSipp() {
@@ -76,11 +77,18 @@ public class Vehicle implements Comparable<Vehicle>{
         this.rating = rating;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     @Override
     public int compareTo(Vehicle o) {
         // usually toString should not be used,
         // instead one of the attributes or more in a comparator chain
         return price.compareTo(o.getPrice());
     }
-
 }

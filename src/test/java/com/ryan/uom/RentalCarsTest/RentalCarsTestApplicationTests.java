@@ -27,38 +27,4 @@ public class RentalCarsTestApplicationTests {
     public void contextLoads() {
         Assert.assertNotNull(context);
     }
-
-    public void itShouldSortCarsByPrice() {
-
-    }
-
-
-    public Exchange getExchange() {
-        Exchange exchange = new DefaultExchange(context);
-        exchange.getIn().setBody(getVehicleList(), VehicleList.class);
-        return exchange;
-    }
-
-    public VehicleList getVehicleList() {
-        VehicleList vehicleList = new VehicleList();
-        Search search = new Search();
-        List<Vehicle> vehicles = new ArrayList<Vehicle>();
-        vehicles.add(getVehicle("Ford Focus", "CDMR", 157.85, "Hertz", 8.9, 0));
-        vehicles.add(getVehicle("VW Passat Estate", "IWMR", 469.37, "Hertz", 8.9, 0));
-        vehicles.add(getVehicle("Skoda Fabia", "CDAR", 219.71, "Sixt", 8.2, 0));
-        vehicleList.setSearch(new Search());
-        search.setVehicleList(vehicles);
-        return vehicleList;
-    }
-
-    public Vehicle getVehicle(String name, String sipp, double price, String supplier, Double rating, int score) {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setName(name);
-        vehicle.setSipp(sipp);
-        vehicle.setPrice(price);
-        vehicle.setSupplier(supplier);
-        vehicle.setRating(rating);
-        vehicle.setScore(score);
-        return vehicle;
-    }
 }
